@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Github, Linkedin, Mail, MapPin } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin, ChevronDown } from "lucide-react";
 
 const PROFILE = {
   name: "Cal Thompson",
@@ -14,7 +14,6 @@ const PROFILE = {
   available: true,
 };
 
-{/* Animated canvas background */}
 function CanvasNetwork() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const mouseRef = useRef<{ x: number | null; y: number | null }>({ x: null, y: null });
@@ -38,8 +37,7 @@ function CanvasNetwork() {
     setSize();
 
     const makePoints = () => {
-      const count =
-        Math.floor((canvas.width / dpr) * (canvas.height / dpr) / 5500) + 70;
+      const count = Math.floor((canvas.width / dpr) * (canvas.height / dpr) / 5500) + 70;
       pointsRef.current = Array.from({ length: count }, () => {
         const speed = 0.15 + Math.random() * 0.25;
         const angle = Math.random() * Math.PI * 2;
@@ -88,8 +86,7 @@ function CanvasNetwork() {
         start: now,
         dur,
       });
-      if (pulsesRef.current.length > 60)
-        pulsesRef.current.splice(0, pulsesRef.current.length - 60);
+      if (pulsesRef.current.length > 60) pulsesRef.current.splice(0, pulsesRef.current.length - 60);
     };
 
     let lastSpawn = 0;
@@ -210,19 +207,17 @@ export default function Intro() {
 
   return (
     <section
-      id="about"
+      id="intro"
       className="
-        relative w-screen min-h-[calc(100vh-4rem)]
+        relative w-screen -mt-16 min-h-[calc(100vh)]
         -mx-[calc((100vw-100%)/2)]
-        flex items-center bg-black text-white
+        flex items-center bg-black text-white pb-16 
       "
     >
       <CanvasNetwork />
 
-      {/* content */}
       <div className="relative mx-auto w-full max-w-5xl px-4">
         <div className="flex flex-col items-center text-center gap-5 sm:gap-6">
-          {/* Avatar */}
           <div className="reveal opacity-0 animate-[fade-up_600ms_ease-out_forwards] [animation-delay:0ms]">
             <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full ring-1 ring-white/10 overflow-hidden bg-white/5">
               {imgOk ? (
@@ -300,6 +295,20 @@ export default function Intro() {
           )}
         </div>
       </div>
+
+      <button
+        onClick={() => document.querySelector("#skills")?.scrollIntoView({ behavior: "smooth" })}
+        aria-label="Scroll to next section"
+        className="
+          absolute bottom-6 left-1/2 -translate-x-1/2 z-50
+          inline-flex h-12 w-12 items-center justify-center rounded-full
+          border border-white/40 bg-white/10 text-white
+        hover:bg-white/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60
+          motion-safe:animate-bounce
+        "
+      >
+        <ChevronDown className="h-6 w-6" strokeWidth={2.5} />
+      </button>
     </section>
   );
 }
