@@ -1,10 +1,31 @@
+import { useEffect, useRef, useState } from "react";
 import { Download } from "lucide-react";
-import React, { useState } from "react";
 
+function useInOut(threshold = 0.35) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [inView, setInView] = useState(false);
+  const [hasEntered, setHasEntered] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        setInView(entry.isIntersecting);
+        if (entry.isIntersecting) setHasEntered(true);
+      },
+      { threshold, rootMargin: "0px 0px -10% 0px" }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+
+  return { ref, inView, hasEntered };
+}
 
 const ABOUT = {
   heading: "About Me",
-  avatar: "/portrait.jpg",      
+  avatar: "/portrait.jpg",
   bio: `I’m Cal Thompson, a software engineer focused on fast, reliable frontends
 and clean APIs. I like shipping iteratively, measuring impact, and building tools
 people actually use.`,
@@ -14,6 +35,19 @@ people actually use.`,
 
 export default function AboutMe() {
   const [imgOk, setImgOk] = useState(true);
+  const { ref, inView, hasEntered } = useInOut();
+
+  const photoAnim = inView
+    ? "animate-[slide-in-left_650ms_ease-out_forwards]"
+    : hasEntered
+    ? "animate-[slide-out-left_450ms_ease-in_forwards]"
+    : "opacity-0 -translate-x-12";
+
+  const bioAnim = inView
+    ? "animate-[slide-in-right_650ms_ease-out_forwards]"
+    : hasEntered
+    ? "animate-[slide-out-right_450ms_ease-in_forwards]"
+    : "opacity-0 translate-x-12";
 
   return (
     <section id="about" className="scroll-mt-24 mx-auto max-w-6xl px-4 py-10 sm:py-12">
@@ -21,10 +55,9 @@ export default function AboutMe() {
         {ABOUT.heading}
       </h2>
 
-      <div className="rounded-xl border border-black/10 p-5 sm:p-6">
+      <div ref={ref} className="rounded-xl border border-black/10 p-5 sm:p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-start">
-          {/* Photo */}
-          <div className="w-full md:max-w-[440px]">
+          <div className={`w-full md:max-w-[440px] will-change-transform ${photoAnim}`}>
             <div className="aspect-square w-full overflow-hidden rounded-lg ring-1 ring-black/10 bg-white">
               {imgOk ? (
                 <img
@@ -40,9 +73,7 @@ export default function AboutMe() {
               )}
             </div>
           </div>
-
-          {/* Bio */}
-          <div className="md:max-w-[50vw] text-left">
+          <div className={`md:max-w-[50vw] text-left will-change-transform ${bioAnim}`}>
             <p className="text-sm sm:text-base leading-relaxed opacity-90">
               {ABOUT.bio}
             </p>
@@ -57,7 +88,6 @@ export default function AboutMe() {
                 Download Resume
               </a>
 
-              {/* Email (full-width cell) */}
               <div className="w-full rounded-md border border-black/15 px-4 py-3 text-sm">
                 <span className="opacity-60 mr-1">Email:</span>
                 <a href={`mailto:${ABOUT.email}`} className="underline break-all">
