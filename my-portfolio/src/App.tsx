@@ -1,7 +1,9 @@
 import './App.css'
+import AboutMe from './components/AboutMe'
 
 import Header from './components/Header'
 import Intro from './components/Intro'
+import Skills from './components/Skills'
 
 function App() {
 
@@ -11,6 +13,8 @@ function App() {
       <Header />
       <main className="pt-16">
         <Intro />
+        <AboutMe />
+        <Skills />
       </main>
     </>
   )
