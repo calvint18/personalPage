@@ -1,5 +1,6 @@
 import './App.css'
 import AboutMe from './components/AboutMe'
+import Experience from './components/Experience'
 
 import Header from './components/Header'
 import Intro from './components/Intro'
@@ -15,6 +16,7 @@ function App() {
         <Intro />
         <AboutMe />
         <Skills />
+        <Experience />
       </main>
     </>
   )

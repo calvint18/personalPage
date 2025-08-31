@@ -54,6 +54,8 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+@import "tailwindcss";
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -67,4 +69,22 @@ button:focus-visible {
   }
 }
 
-@import "tailwindcss";
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-48px) scale(.98); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(48px) scale(.98); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+keyframes slide-out-left  { from {opacity:1; transform:translateX(0)      scale(1)}   to {opacity:0; transform:translateX(-48px) scale(.98)} }
+@keyframes slide-out-right { from {opacity:1; transform:translateX(0)      scale(1)}   to {opacity:0; transform:translateX( 48px) scale(.98)} }
+
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { animation: none !important; opacity: 1 !important; transform: none !important; }
+}
+
+
+
