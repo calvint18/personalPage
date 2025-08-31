@@ -1,0 +1,166 @@
+import { Calendar, GraduationCap, MapPin } from "lucide-react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+
+
+export type Edu = {
+  school: string;
+  degree: string;
+  period: string; 
+  location?: string;
+  gpa?: string; 
+  coursework?: string[]; 
+};
+
+const EDUCATION: Edu[] = [
+  {
+    school: "Bowdoin College",
+    degree: "B.A. Computer Science (Interdisciplinary: Math & Economics)",
+    period: "Expected May 2027",
+    location: "Brunswick, Maine",
+    gpa: "3.77/4.0",
+    coursework: [
+      "Data Structures & Algorithms",
+      "Linear Algebra",
+      "Foundations of Computer Systems",
+    ],
+  },
+];
+
+function Pill({ text }: { text: string }) {
+  return (
+    <span className="inline-flex items-center rounded-full border border-indigo-400/40 bg-indigo-50/40 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 px-3 py-1.5 text-sm">
+      {text}
+    </span>
+  );
+}
+
+function TickerRow({
+  items,
+  reverse = false,
+  multiplier = 3,
+  pxPerSecond = 55, // lower = slower
+}: {
+  items: string[];
+  reverse?: boolean;
+  multiplier?: number;
+  pxPerSecond?: number;
+}) {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [duration, setDuration] = useState(20);
+
+  const base = Array.from({ length: multiplier }, () => items).flat();
+  const sequence = [...base, ...base]; 
+
+  useLayoutEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const halfWidth = el.scrollWidth / 2; 
+    const seconds = halfWidth / pxPerSecond;
+    setDuration(seconds || 20);
+  }, [items, pxPerSecond, multiplier]);
+
+  return (
+    <div className="relative overflow-hidden py-1 [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
+      <div
+        ref={trackRef}
+        className="flex gap-3 w-max whitespace-nowrap will-change-transform"
+        style={{
+          animation: `marquee ${duration}s linear infinite`,
+          animationDirection: reverse ? ("reverse" as const) : ("normal" as const),
+        }}
+      >
+        {sequence.map((t, i) => (
+          <Pill key={`${t}-${i}`} text={t} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+{/* Reveal on scroll */}
+function useInOut(threshold = 0.35) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [inView, setInView] = useState(false);
+  const [hasEntered, setHasEntered] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        setInView(entry.isIntersecting);
+        if (entry.isIntersecting) setHasEntered(true);
+      },
+      { threshold, rootMargin: "0px 0px -10% 0px" }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+
+  return { ref, inView, hasEntered };
+}
+
+function EducationCard({ edu }: { edu: Edu }) {
+  const { ref, inView, hasEntered } = useInOut();
+
+  const base =
+    "rounded-3xl border border-indigo-400/30 bg-white/60 dark:bg-slate-900/40 shadow-sm p-5 sm:p-6 md:p-7 backdrop-blur";
+
+  const initial = "opacity-0 translate-y-3 scale-95";
+  const anim = inView
+    ? "animate-[pop-in_650ms_cubic-bezier(0.2,0.8,0.2,1)_forwards]"
+    : hasEntered
+    ? "animate-[pop-out_350ms_ease-in_forwards]"
+    : initial;
+
+  return (
+    <article ref={ref} className={`${base} ${anim}`}>
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] md:items-start gap-4">
+        {/* School */}
+        <div>
+          <div className="flex items-start gap-3">
+            <div className="mt-1 rounded-full border border-indigo-400/40 p-2 text-indigo-600 dark:text-indigo-300">
+              <GraduationCap className="w-5 h-5" />
+            </div>
+            <div className="min-w-0">
+              <h3 className="text-xl font-semibold leading-snug">{edu.school}</h3>
+              <div className="mt-1 space-y-1 text-sm opacity-80">
+                {edu.location && (
+                  <p className="flex items-center gap-2"><MapPin className="w-4 h-4" /> {edu.location}</p>
+                )}
+                <p className="flex items-center gap-2"><Calendar className="w-4 h-4" /> {edu.period}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Degree + GPA */}
+        <div className="md:text-right">
+          <div className="text-indigo-600 dark:text-indigo-300 font-semibold text-lg">{edu.degree}</div>
+          {edu.gpa && <div className="opacity-70 text-sm mt-1">GPA: {edu.gpa}</div>}
+        </div>
+      </div>
+
+      {/* Coursework title */}
+      {edu.coursework && edu.coursework.length > 0 && (
+        <div className="mt-5">
+          <div className="font-semibold mb-2">Relevant Coursework:</div>
+          <TickerRow items={edu.coursework} pxPerSecond={55} />
+        </div>
+      )}
+    </article>
+  );
+}
+
+export default function Education() {
+  return (
+    <section id="education" className="scroll-mt-24 mx-auto max-w-6xl px-4 py-10 sm:py-12">
+      <h2 className="text-2xl md:text-3xl font-semibold tracking-tight mb-6">Education</h2>
+      <div className="grid grid-cols-1 gap-6">
+        {EDUCATION.map((e, i) => (
+          <EducationCard key={e.school + i} edu={e} />
+        ))}
+      </div>
+    </section>
+  );
+}
