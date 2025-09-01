@@ -13,7 +13,7 @@ export type Edu = {
 const EDUCATION: Edu[] = [
   {
     school: "Bowdoin College",
-    degree: "B.A. Computer Science (Interdisciplinary: Math & Economics)",
+    degree: "B.A. Computer Science, Interdisciplinary: Math & Economics",
     period: "Expected May 2027",
     location: "Brunswick, Maine",
     gpa: "3.77/4.0",
@@ -21,6 +21,20 @@ const EDUCATION: Edu[] = [
       "Data Structures & Algorithms",
       "Linear Algebra",
       "Foundations of Computer Systems",
+    ],
+  },
+  {
+    school: "Advanced Math and Science Academy",
+    degree: "High School Diploma",
+    period: "May 2023",
+    location: "Marlborough, Massachusetts",
+    gpa: "4.5/5",
+    coursework: [
+      "AP Computer Science",
+      "AP Calculus BC",
+      "AP Micro",
+      "Intro to Data Science",
+      "Cybersecurity"
     ],
   },
 ];
