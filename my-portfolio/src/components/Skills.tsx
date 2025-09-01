@@ -22,7 +22,7 @@ import { VscAzure } from "react-icons/vsc";
 import { DiMsqlServer } from "react-icons/di";
 
 const LANGUAGES = ["TypeScript","JavaScript","Java","C","C#","SQL","Python","HTML5","CSS3"];
-const FRAMEWORKS = ["React","ASP.NET Core","Entity Framework Core","Dapper","Tailwind CSS","Hangfire"];
+const FRAMEWORKS = ["React","ASP.NET Core","Dapper","Tailwind CSS","Hangfire"];
 const TOOLS = ["SQL Server","Azure","Docker","Git","GitHub","GitLab","Vercel","Stripe"];
 
 // Custom "C#" glyph: C icon with a small '#' overlaid
@@ -56,13 +56,12 @@ const ICONS: Record<string, React.ComponentType<{ size?: number; className?: str
   // Frameworks / libs
   React: SiReact,
   "ASP.NET Core": SiDotnet,
-  "Entity Framework Core": SiDotnet,
   Dapper: SiNuget,
   "Tailwind CSS": SiTailwindcss,
 
   // Tools
   "SQL Server": DiMsqlServer,
-  "Azure SQL": VscAzure,
+  "Azure": VscAzure,
   Docker: SiDocker,
   Git: SiGit,
   GitHub: SiGithub,

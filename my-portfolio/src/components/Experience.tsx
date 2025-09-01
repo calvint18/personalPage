@@ -17,11 +17,12 @@ const EXPERIENCES: Exp[] = [
     location: "Sudbury, MA",
     period: "Jun–Aug 2025",
     bullets: [
-      "Built QuickPick traversal and redesigned multi-recipient email modal.",
-      "Implemented Hangfire job to detect MCT discrepancies and notify stakeholders.",
-      "Shipped iterative improvements with ops feedback.",
+      "Built and shipped Price Center, a full-stack pricing app for company-wide sessions with batch updates and audit trails (React, .NET/C#, MS SQL).",
+      "Cut item load time from 9.0s → 0.4s for 22k items by replacing a long stored procedure with two SQL views and a nightly Hangfire snapshot job.",
+      "Delivered a high-performance Session Editing grid (pinned columns, filtering, sorting, multi-select, and type-aware inline editors).",
+      "Scheduled pending transaction emails via Hangfire, revamped a multi-recipient email form, and added a Quick Pick category menu for faster selection.",
     ],
-    logoSrc: "/logos/cavicchio.png",
+    logoSrc: "/logos/cav.png",
   },
   {
     company: "Arctic Global Management",
@@ -29,20 +30,46 @@ const EXPERIENCES: Exp[] = [
     location: "Brunswick, ME",
     period: "Feb 2024–Present",
     bullets: [
-      "Led equity research; presented NYSE stock pitches bi-weekly.",
-      "Built DCF/football-field models; mentored analysts.",
+      "Conduct bi-weekly equity research and stock-pitch evaluations; provide structured feedback that improves pitch quality and analyst skills.",
+      "Build DCF, football-field, and scenario models; present NYSE-listed stock theses to drive informed investment decisions.",
+      "Helped launch Bowdoin’s first student-managed fund by assisting with tax-exempt incorporation and fundraising.",
     ],
-    logoSrc: "/logos/arctic.png",
+    logoSrc: "/logos/arctic.jpeg",
   },
   {
-    company: "Bowdoin IT",
-    role: "IT Support Representative",
+    company: "Bowdoin",
+    role: "Data Structures Learning Assistant",
     location: "Brunswick, ME",
-    period: "2023–2024",
-    bullets: ["Resolved tickets and improved documentation for student/staff workflows."],
-    logoSrc: "/logos/bowdoin-it.png",
+    period: "Jan 2025–Present",
+    bullets: [
+      "Support Data Structures students in labs and office hours; coordinate with faculty and tailor explanations to different learning styles.",
+    ],
+    logoSrc: "/logos/bowdoin.jpg",
+  },
+  {
+    company: "Bowdoin",
+    role: "Technical Support Representative",
+    location: "Brunswick, ME",
+    period: "Jan 2024–Present",
+    bullets: [
+      "Assist ~3,000 faculty, staff, alumni, and students via TeamDynamix with software/hardware issues across in-person, phone, and chat.",
+      "Manage ~5,000 iOS devices and resolve client issues efficiently in a high-volume environment.",
+    ],
+    logoSrc: "/logos/bowdoin.jpg",
+  },
+  {
+    company: "Cyberwarrior Foundation",
+    role: "Teaching Assistant",
+    location: "Haverhill & Chelsea, MA",
+    period: "Apr 2023–Jan 2024",
+    bullets: [
+      "Led a 12-week program for 20 high-school students covering cybersecurity, virtual networks, Python, and Linux through talks and games.",
+      "Helped bridge tech skill gaps in underserved communities and increase diversity in tech.",
+    ],
+    logoSrc: "/logos/cyberwarrior.jpeg",
   },
 ];
+
 
 function useInView(threshold = 0.35) {
   const ref = useRef<HTMLDivElement | null>(null);
