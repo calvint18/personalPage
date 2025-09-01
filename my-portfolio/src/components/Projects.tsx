@@ -1,12 +1,10 @@
 import { ExternalLink, Github } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 
-
-
 export type Project = {
   title: string;
   blurb: string;
-  image: string; 
+  image: string;
   tags: string[];
   live?: string;
   code?: string;
@@ -41,7 +39,6 @@ const PROJECTS: Project[] = [
     code: "#",
   },
 ];
-// ----------------------------------------------------------------
 
 function useInOut(threshold = 0.35) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -67,7 +64,7 @@ function useInOut(threshold = 0.35) {
 
 function Tag({ text }: { text: string }) {
   return (
-    <span className="inline-flex items-center rounded-full border border-white/30 bg-white/10 px-2.5 py-1 text-xs backdrop-blur-sm">
+    <span className="inline-flex items-center rounded-full border border-slate-300 bg-white text-slate-900 px-2.5 py-1 text-xs shadow-sm">
       {text}
     </span>
   );
@@ -88,7 +85,6 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
       : "animate-[slide-out-right_450ms_ease-in_forwards]"
     : imgInitial;
 
-  // panel animation
   const panelInitial = "opacity-0 translate-y-3 scale-95";
   const panelAnim = inView
     ? "animate-[pop-in_600ms_cubic-bezier(0.2,0.8,0.2,1)_forwards]"
@@ -98,46 +94,50 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
 
   return (
     <article ref={ref} className="relative">
-      <div className="relative rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-100/60 dark:bg-slate-900/40 shadow-lg">
-        {/* Project image */}
-        <div className={`relative h-64 sm:h-80 md:h-[420px] will-change-transform ${imgAnim}`}>
-          <img
-            src={p.image}
-            alt={`${p.title} preview`}
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        </div>
+      <div className="rounded-xl border border-white/5 bg-black/20 p-5 sm:p-6">
+        <div className="relative rounded-3xl overflow-hidden shadow-lg">
+          <div className={`relative h-64 sm:h-80 md:h-[420px] will-change-transform ${imgAnim}`}>
+            <img
+              src={p.image}
+              alt={`${p.title} preview`}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          </div>
 
-        {/* Overlay panel */}
-        <div
-          className={
-            `md:absolute md:top-1/2 md:-translate-y-1/2 ${
-              dir === "left" ? "md:right-6" : "md:left-6"
-            } md:max-w-[55%]`
-          }
-        >
           <div
-            className={`rounded-2xl border border-white/20 bg-blue-600/70 text-white backdrop-blur-md p-5 sm:p-6 shadow-xl ${panelAnim}`}
+            className={`md:absolute md:top-1/2 md:-translate-y-1/2 ${
+              dir === "left" ? "md:right-6" : "md:left-6"
+            } md:max-w-[55%] z-10`}
           >
-            <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">{p.title}</h3>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {p.tags.map((t) => (
-                <Tag key={t} text={t} />
-              ))}
-            </div>
-            <p className="mt-3 text-sm sm:text-base text-white/90 leading-relaxed">{p.blurb}</p>
+            <div className={`rounded-2xl bg-white text-slate-900 ring-1 ring-black/10 p-5 sm:p-6 shadow-xl ${panelAnim}`}>
+              <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">{p.title}</h3>
 
-            <div className="mt-4 flex gap-4 text-sm">
-              {p.live && (
-                <a href={p.live} className="inline-flex items-center gap-1.5 underline">
-                  <ExternalLink className="w-4 h-4" /> Live
-                </a>
-              )}
-              {p.code && (
-                <a href={p.code} className="inline-flex items-center gap-1.5 underline">
-                  <Github className="w-4 h-4" /> Code
-                </a>
-              )}
+              <div className="mt-3 flex flex-wrap gap-2">
+                {p.tags.map((t) => (
+                  <Tag key={t} text={t} />
+                ))}
+              </div>
+
+              <p className="mt-3 text-sm sm:text-base leading-relaxed">{p.blurb}</p>
+
+              <div className="mt-4 flex gap-4 text-sm">
+                {p.live && (
+                  <a
+                    href={p.live}
+                    className="inline-flex items-center gap-1.5 underline underline-offset-2 !text-slate-900 hover:opacity-80"
+                  >
+                    <ExternalLink className="w-4 h-4" /> Live
+                  </a>
+                )}
+                {p.code && (
+                  <a
+                    href={p.code}
+                    className="inline-flex items-center gap-1.5 underline underline-offset-2 !text-slate-900 hover:opacity-80"
+                  >
+                    <Github className="w-4 h-4" /> Code
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -150,8 +150,8 @@ export default function Projects() {
   return (
     <section id="projects" className="scroll-mt-24 mx-auto max-w-6xl px-4 py-12">
       <div className="flex items-center gap-4 mb-6">
-        <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">Projects</h2>
-        <div className="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
+        <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-white">Projects</h2>
+        <div className="h-px flex-1 bg-white/10" />
       </div>
 
       <div className="grid grid-cols-1 gap-10">

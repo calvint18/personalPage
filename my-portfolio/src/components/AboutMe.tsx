@@ -1,64 +1,45 @@
-import { useEffect, useRef, useState } from "react";
-import { Download } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
 
-function useInOut(threshold = 0.35) {
+function useInView(threshold = 0.35) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [inView, setInView] = useState(false);
-  const [hasEntered, setHasEntered] = useState(false);
-
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        setInView(entry.isIntersecting);
-        if (entry.isIntersecting) setHasEntered(true);
-      },
-      { threshold, rootMargin: "0px 0px -10% 0px" }
-    );
+    const obs = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), {
+      threshold,
+      rootMargin: "0px 0px -10% 0px",
+    });
     obs.observe(el);
     return () => obs.disconnect();
   }, [threshold]);
-
-  return { ref, inView, hasEntered };
+  return { ref, inView };
 }
 
 const ABOUT = {
   heading: "About Me",
-  avatar: "/portrait.jpg",
+  avatar: "/about.jpg",
   bio: `I’m Cal Thompson, a software engineer focused on fast, reliable frontends
 and clean APIs. I like shipping iteratively, measuring impact, and building tools
 people actually use.`,
-  email: "cal@example.com",
+  email: "cthompson2@bowdoin.edu",
   resumeUrl: "/resume.pdf",
 };
 
 export default function AboutMe() {
   const [imgOk, setImgOk] = useState(true);
-  const { ref, inView, hasEntered } = useInOut();
-
-  const photoAnim = inView
-    ? "animate-[slide-in-left_650ms_ease-out_forwards]"
-    : hasEntered
-    ? "animate-[slide-out-left_450ms_ease-in_forwards]"
-    : "opacity-0 -translate-x-12";
-
-  const bioAnim = inView
-    ? "animate-[slide-in-right_650ms_ease-out_forwards]"
-    : hasEntered
-    ? "animate-[slide-out-right_450ms_ease-in_forwards]"
-    : "opacity-0 translate-x-12";
+  const { ref } = useInView();
 
   return (
     <section id="about" className="scroll-mt-24 mx-auto max-w-6xl px-4 py-10 sm:py-12">
-      <h2 className="text-xl md:text-2xl font-semibold tracking-tight mb-6">
+      <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-7 text-white">
         {ABOUT.heading}
       </h2>
 
-      <div ref={ref} className="rounded-xl border border-black/10 p-5 sm:p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-start">
-          <div className={`w-full md:max-w-[440px] will-change-transform ${photoAnim}`}>
-            <div className="aspect-square w-full overflow-hidden rounded-lg ring-1 ring-black/10 bg-white">
+      <div ref={ref} className="rounded-xl border border-white/5 bg-black/20 p-5 sm:p-6">
+        <div className="grid grid-cols-1 md:grid-cols-[440px_minmax(0,1fr)] gap-6 md:gap-10 items-stretch">
+          <div className="w-full">
+            <div className="aspect-square w-full overflow-hidden rounded-xl ring-1 ring-black/10 bg-white">
               {imgOk ? (
                 <img
                   src={ABOUT.avatar}
@@ -73,25 +54,31 @@ export default function AboutMe() {
               )}
             </div>
           </div>
-          <div className={`md:max-w-[50vw] text-left will-change-transform ${bioAnim}`}>
-            <p className="text-sm sm:text-base leading-relaxed opacity-90">
-              {ABOUT.bio}
-            </p>
 
-            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 items-stretch">
-              <a
-                href={ABOUT.resumeUrl}
-                download
-                className="w-full inline-flex items-center justify-center gap-2 rounded-md border border-black/15 px-4 py-3 text-sm hover:bg-black/[0.03] focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
-              >
-                <Download className="w-4 h-4" />
-                Download Resume
-              </a>
+          <div className="h-full">
+            <div className="h-full rounded-xl bg-white text-slate-900 shadow-xl ring-1 ring-black/10 p-5 sm:p-6 flex flex-col">
+              <p className="text-base sm:text-lg leading-relaxed">
+                {ABOUT.bio}
+              </p>
 
-              <div className="w-full rounded-md border border-black/15 px-4 py-3 text-sm">
-                <span className="opacity-60 mr-1">Email:</span>
-                <a href={`mailto:${ABOUT.email}`} className="underline break-all">
-                  {ABOUT.email}
+              <div className="mt-auto pt-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <a
+                  href={ABOUT.resumeUrl}
+                  download
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 px-4 py-3 text-sm hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 !text-slate-900 hover:!text-slate-900 visited:!text-slate-900"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="shrink-0">
+                    <path d="M12 3v12m0 0l4-4m-4 4l-4-4M5 21h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  Download Resume
+                </a>
+
+                <a
+                  href={`mailto:${ABOUT.email}`}
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 px-4 py-3 text-sm underline-offset-2 hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 !text-slate-900 hover:!text-slate-900 visited:!text-slate-900"
+                >
+                  <span className="text-slate-500 mr-1">Email:</span>
+                  <span className="underline break-all">{ABOUT.email}</span>
                 </a>
               </div>
             </div>

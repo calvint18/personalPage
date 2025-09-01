@@ -5,7 +5,7 @@ const PROFILE = {
   name: "Cal Thompson",
   title: "Software Engineer",
   location: "Boston, MA",
-  avatar: "/me.jpg",
+  avatar: "/intro.jpg",
   links: {
     github: "https://github.com/calvint18",
     linkedin: "https://www.linkedin.com/in/calvin-thompson-904b88249/",
@@ -258,8 +258,8 @@ export default function Intro() {
               aria-label="LinkedIn"
               className="inline-flex items-center gap-2 rounded-md border border-white/20 px-3 py-2 text-sm hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
             >
-              <Linkedin className="w-5 h-5" />
-              <span className="sm:inline">LinkedIn</span>
+              <Linkedin className="w-5 h-5 text-white" />
+              <span className="sm:inline text-white">LinkedIn</span>
             </a>
             <a
               href={PROFILE.links.github}
@@ -268,16 +268,16 @@ export default function Intro() {
               aria-label="GitHub"
               className="inline-flex items-center gap-2 rounded-md border border-white/20 px-3 py-2 text-sm hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
             >
-              <Github className="w-5 h-5" />
-              <span className="sm:inline">GitHub</span>
+              <Github className="w-5 h-5 text-white" />
+              <span className="sm:inline text-white">GitHub</span>
             </a>
             <a
               href={`mailto:${PROFILE.links.email}`}
               aria-label="Email"
               className="inline-flex items-center gap-2 rounded-md border border-white/20 px-3 py-2 text-sm hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
             >
-              <Mail className="w-5 h-5" />
-              <span className="sm:inline">Email</span>
+              <Mail className="w-5 h-5 text-white" />
+              <span className="sm:inline text-white">Email</span>
             </a>
           </div>
 

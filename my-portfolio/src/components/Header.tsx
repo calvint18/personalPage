@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const LINKS = [
@@ -24,10 +24,10 @@ export default function Header() {
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-black/10 bg-white/70 backdrop-blur">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-black/10 bg-white backdrop-blur">
       <div className="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
         {/* Left Side */}
-        <a href="#top" className="font-semibold tracking-tight">
+        <a href="#top" className="font-bold tracking-tight">
           Cal Thompson
         </a>
 
