@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function useInView(threshold = 0.35) {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -19,9 +19,12 @@ function useInView(threshold = 0.35) {
 const ABOUT = {
   heading: "About Me",
   avatar: "/about.jpg",
-  bio: `I’m Cal Thompson, a software engineer focused on fast, reliable frontends
-and clean APIs. I like shipping iteratively, measuring impact, and building tools
-people actually use.`,
+  bio: `Hola! I’m Cal Thompson, a student-athlete at Bowdoin College double-majoring in Computer Science and Math & Economics interdisciplinary. 
+  This semester I’m in Madrid, learning through a new lens how technology shapes society and immersing myself in European culture. 
+  On campus, I’m part of Bowdoin Baseball, Arctic Global Management, the Polar Investment Club, and the CS Faculty Search Committee.
+I care about building full-stack products that are impactful, like the nonprofit and its website I recently created.
+I’m currently exploring ways to apply my CS and finance background to help people make more informed stock decisions. Thanks for checking out my site!
+  `,
   email: "cthompson2@bowdoin.edu",
   resumeUrl: "/resume.pdf",
 };
@@ -56,8 +59,8 @@ export default function AboutMe() {
           </div>
 
           <div className="h-full">
-            <div className="h-full rounded-xl bg-white text-slate-900 shadow-xl ring-1 ring-black/10 p-5 sm:p-6 flex flex-col">
-              <p className="text-base sm:text-lg leading-relaxed">
+            <div className="h-full rounded-xl bg-white text-slate-900 shadow-xl ring-1 ring-black/10 p-5 sm:p-6 flex flex-col text-left">
+              <p className="text-base sm:text-lg leading-relaxed text-left">
                 {ABOUT.bio}
               </p>
 
@@ -75,10 +78,10 @@ export default function AboutMe() {
 
                 <a
                   href={`mailto:${ABOUT.email}`}
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 px-4 py-3 text-sm underline-offset-2 hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 !text-slate-900 hover:!text-slate-900 visited:!text-slate-900"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-md border border-slate-300 px-4 py-3 text-xs sm:text-sm underline-offset-2 hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 !text-slate-900 hover:!text-slate-900 visited:!text-slate-900 whitespace-nowrap"
                 >
                   <span className="text-slate-500 mr-1">Email:</span>
-                  <span className="underline break-all">{ABOUT.email}</span>
+                  <span className="underline">{ABOUT.email}</span>
                 </a>
               </div>
             </div>
