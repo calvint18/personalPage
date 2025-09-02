@@ -2,9 +2,9 @@ import { Download, Mail, MapPin, Phone } from "lucide-react";
 
 const CONTACT = {
   heading: "Contact Info",
-  subheading: "I'd love to hear from you!",
+  subheading: "I'm actively seeking 2026 Software Development and Engineering internships!",
   blurb:
-    "Feel free to reach out if you have any questions, want to discuss a project, or just want to say hello.",
+    "I would love to discuss how I can contribute to your team, your experience going through the interview process, and any other advice you may have!",
   email: "cthompson2@bowdoin.edu",
   phone: "978-618-7073",
   location: "Boston, Massachusetts",
