@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Github, Linkedin, Mail, MapPin, ArrowDown } from "lucide-react";
 
 const PROFILE = {

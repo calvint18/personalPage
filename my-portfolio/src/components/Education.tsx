@@ -1,5 +1,5 @@
 import { Calendar, GraduationCap, MapPin } from "lucide-react";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 export type Edu = {
   school: string;
