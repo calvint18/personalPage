@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Github, Linkedin, Mail, MapPin, ChevronDown } from "lucide-react";
+import { Github, Linkedin, Mail, MapPin, ArrowDown } from "lucide-react";
 
 const PROFILE = {
   name: "Cal Thompson",
@@ -92,6 +92,9 @@ function CanvasNetwork() {
     let lastSpawn = 0;
 
     const loop = (now: number) => {
+      const canvas = canvasRef.current!;
+      const ctx = canvas.getContext("2d")!;
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const w = canvas.width / dpr;
@@ -297,17 +300,30 @@ export default function Intro() {
       </div>
 
       <button
-        onClick={() => document.querySelector("#skills")?.scrollIntoView({ behavior: "smooth" })}
+        onClick={() => {
+          const target = document.querySelector("#about") as HTMLElement | null;
+          if (!target) return;
+          const header = document.getElementById("site-header");
+          const offset = header?.offsetHeight ?? 72;
+          const y = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }}
         aria-label="Scroll to next section"
         className="
-          absolute bottom-6 left-1/2 -translate-x-1/2 z-50
-          inline-flex h-12 w-12 items-center justify-center rounded-full
-          border border-white/40 bg-white/10 text-white
-        hover:bg-white/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60
+          absolute bottom-6 left-1/2 -translate-x-1/2
+          z-10 inline-flex h-14 w-14 items-center justify-center rounded-full
+          bg-white text-black border border-black/15 shadow-md
+          hover:bg-white/90 hover:shadow-lg
+          focus:outline-none focus-visible:ring-2 focus-visible:ring-black/20
           motion-safe:animate-bounce
         "
+        style={{
+          backgroundColor: "#fff",
+          color: "#000",
+          borderColor: "rgba(0,0,0,0.15)",
+        }}
       >
-        <ChevronDown className="h-6 w-6" strokeWidth={2.5} />
+        <ArrowDown className="h-12 w-12 text-black" strokeWidth={2.5} />
       </button>
     </section>
   );

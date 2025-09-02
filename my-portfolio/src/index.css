@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+/* ---------- Base ---------- */
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -15,6 +16,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Let the app fill the viewport */
+html, body, #root {
+  width: 100%;
+  height: 100%;
+}
+
 a {
   font-weight: 500;
   color: #000000;
@@ -26,10 +33,11 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  display: block;
+  place-items: normal;
+  overflow-x: hidden;      
 }
 
 h1 {
@@ -48,13 +56,9 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
-  border-color: #ffffff;
-}
+button:hover { border-color: #ffffff; }
 button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+button:focus-visible { outline: 4px auto -webkit-focus-ring-color; }
 
 
 @media (prefers-color-scheme: light) {
@@ -62,13 +66,10 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+  a:hover { color: #747bff; }
+  button { background-color: #f9f9f9; }
 }
+
 
 @keyframes slide-in-left {
   from { opacity: 0; transform: translateX(-48px) scale(.98); }
@@ -78,9 +79,8 @@ button:focus-visible {
   from { opacity: 0; transform: translateX(48px) scale(.98); }
   to   { opacity: 1; transform: translateX(0) scale(1); }
 }
-
-@keyframes slide-out-left  { from {opacity:1; transform:translateX(0)      scale(1)}   to {opacity:0; transform:translateX(-48px) scale(.98)} }
-@keyframes slide-out-right { from {opacity:1; transform:translateX(0)      scale(1)}   to {opacity:0; transform:translateX( 48px) scale(.98)} }
+@keyframes slide-out-left  { from {opacity:1; transform:translateX(0) scale(1)} to {opacity:0; transform:translateX(-48px) scale(.98)} }
+@keyframes slide-out-right { from {opacity:1; transform:translateX(0) scale(1)} to {opacity:0; transform:translateX(48px)  scale(.98)} }
 
 @keyframes pop-in  { from {opacity:0; transform:translateY(12px) scale(.92)} 60%{opacity:1; transform:translateY(-2px) scale(1.02)} to {opacity:1; transform:translateY(0) scale(1)} }
 @keyframes pop-out { from {opacity:1; transform:translateY(0) scale(1)} to {opacity:0; transform:translateY(12px) scale(.92)} }
@@ -90,8 +90,6 @@ button:focus-visible {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-
 @media (prefers-reduced-motion: reduce) {
   .reveal { animation: none !important; opacity: 1 !important; transform: none !important; }
 }
-
