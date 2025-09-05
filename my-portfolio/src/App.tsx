@@ -15,8 +15,8 @@ function App() {
 
   return (
     <>
-      <Header />
       <main className="pt-16">
+        <Header />
         <Intro />
         <AboutMe />
         <Skills />

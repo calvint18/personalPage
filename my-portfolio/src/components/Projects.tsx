@@ -7,8 +7,8 @@ export type Project = {
   image: string;
   tags: string[];
   live?: string;
-  code?: string;
-  contactForCode?: boolean;
+  code?: string; 
+  contactForCode?: boolean;  
 };
 
 const CONTACT_EMAIL = "cthompson2@bowdoin.edu";
@@ -16,7 +16,9 @@ const CONTACT_EMAIL = "cthompson2@bowdoin.edu";
 function buildMailto(title: string) {
   const subject = `Request for code: ${title}`;
   const body = `Hello Cal, I'm reaching out to learn more about the code for the ${title} project.`;
-  return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+    body
+  )}`;
 }
 
 const PROJECTS: Project[] = [
@@ -27,6 +29,7 @@ const PROJECTS: Project[] = [
     image: "project/charity.jpeg",
     tags: ["React", "TypeScript", "Stripe", "ASP.NET", "SQL"],
     contactForCode: true,
+    live: "https://www.gailthompsonfoundation.org/",
   },
   {
     title: "Price Center",
@@ -49,8 +52,8 @@ const PROJECTS: Project[] = [
     blurb:
       "Simulates a hardware data cache on real-world memory traces reporting hits, misses, and evictions under an LRU replacement policy.",
     image: "/project/cache.jpg",
-    tags: ["C", "CLI","Memory Management", "LRU", ],
-    contactForCode: true, 
+    tags: ["C", "CLI", "Memory Management", "LRU"],
+    contactForCode: true,
   },
   {
     title: "Trie-Based Lexicon",
@@ -58,7 +61,7 @@ const PROJECTS: Project[] = [
       "Trie-based lexicon with word/prefix membership, regex matching, and edit-distance suggestions.",
     image: "/project/lexicon.jpeg",
     tags: ["Java", "Algorithms", "Regex", "Spell Correction", "Recursion"],
-    contactForCode: true, 
+    contactForCode: true,
   },
 ];
 
@@ -145,8 +148,31 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
 
               <p className="mt-3 text-sm sm:text-base leading-relaxed">{p.blurb}</p>
 
+              {/* Render buttons independently so they can co-exist */}
               <div className="mt-4 flex gap-4 text-sm">
-                {p.contactForCode ? (
+                {p.live && (
+                  <a
+                    href={p.live}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white text-slate-900 hover:!text-slate-900 focus-visible:!text-slate-900 px-3 py-1.5 text-sm shadow-sm hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/20 transition"
+                    aria-label={`Open live demo: ${p.title}`}
+                  >
+                    <ExternalLink className="w-4 h-4" /> Live
+                  </a>
+                )}
+                {p.code && (
+                  <a
+                    href={p.code}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white text-slate-900 hover:!text-slate-900 focus-visible:!text-slate-900 px-3 py-1.5 text-sm shadow-sm hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/20 transition"
+                    aria-label={`Open code repo: ${p.title}`}
+                  >
+                    <Github className="w-4 h-4" /> Code
+                  </a>
+                )}
+                {p.contactForCode && (
                   <a
                     href={buildMailto(p.title)}
                     className="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white text-slate-900 hover:!text-slate-900 focus-visible:!text-slate-900 px-3 py-1.5 text-sm shadow-sm hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/20 active:translate-y-px transition"
@@ -154,25 +180,6 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
                   >
                     Contact for code
                   </a>
-                ) : (
-                  <>
-                    {p.live && (
-                      <a
-                        href={p.live}
-                        className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white text-slate-900 hover:!text-slate-900 focus-visible:!text-slate-900 px-3 py-1.5 text-sm shadow-sm hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/20 transition"
-                      >
-                        <ExternalLink className="w-4 h-4" /> Live
-                      </a>
-                    )}
-                    {p.code && (
-                      <a
-                        href={p.code}
-                        className="inline-flex items-center gap-1.5 rounded-md border border-slate-300 bg-white text-slate-900 hover:!text-slate-900 focus-visible:!text-slate-900 px-3 py-1.5 text-sm shadow-sm hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/20 transition"
-                      >
-                        <Github className="w-4 h-4" /> Code
-                      </a>
-                    )}
-                  </>
                 )}
               </div>
             </div>
