@@ -25,9 +25,9 @@ const PROJECTS: Project[] = [
   {
     title: "Donation Platform",
     blurb:
-      "Full-stack donation platform for a non-profit charity enabling one-time donations via Stripe with saved donation history in the database. Built with React and TypeScript frontend, C# and ASP.NET Core, and SQL Server to manage data.",
-    image: "project/charity.jpeg",
-    tags: ["React", "TypeScript", "Stripe", "ASP.NET", "SQL"],
+      "Built and shipped an end-to-end donations platform for my nonprofit: React + Bootstrap frontend with real-time progress, Stripe Payment Element checkout, ASP.NET Core (C#) API using EF Core/Dapper on Azure SQL; production-ready on Vercel (frontend) and Render (API) with env-based config, CORS/HTTPS hardening, health checks, and secure secrets.",
+    image: "project/charity.png",
+    tags: ["React", "TypeScript", "Stripe", "ASP.NET", "SQL", "Vercel", "Render", "Azure"],
     contactForCode: true,
     live: "https://www.gailthompsonfoundation.org/",
   },

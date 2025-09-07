@@ -8,7 +8,7 @@ const CONTACT = {
   email: "cthompson2@bowdoin.edu",
   phone: "978-618-7073",
   location: "Boston, Massachusetts",
-  resumeUrl: "/resume.pdf",
+  resumeUrl: "/thompsonCalvinResume.pdf",
 };
 
 export default function Contact() {

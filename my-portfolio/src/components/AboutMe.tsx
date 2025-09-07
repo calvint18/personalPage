@@ -26,7 +26,7 @@ I care about building full-stack products that are impactful, like the nonprofit
 I’m currently exploring ways to apply my CS and finance background to help people make more informed stock decisions. Thanks for checking out my site!
   `,
   email: "cthompson2@bowdoin.edu",
-  resumeUrl: "/resume.pdf",
+  resumeUrl: "/thompsonCalvinResume.pdf",
 };
 
 export default function AboutMe() {

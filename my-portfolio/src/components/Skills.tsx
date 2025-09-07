@@ -16,6 +16,7 @@ import {
   SiStripe,
   SiNuget,
   SiC,
+  SiRender,
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 import { VscAzure } from "react-icons/vsc";
@@ -23,7 +24,7 @@ import { DiMsqlServer } from "react-icons/di";
 
 const LANGUAGES = ["TypeScript","JavaScript","Java","C","C#","SQL","Python","HTML5","CSS3"];
 const FRAMEWORKS = ["React","ASP.NET Core","Dapper","Tailwind CSS","Hangfire"];
-const TOOLS = ["SQL Server","Azure","Docker","Git","GitHub","GitLab","Vercel","Stripe"];
+const TOOLS = ["SQL Server","Azure","Docker","Git","GitHub","GitLab","Vercel","Stripe", "Render"];
 
 // Custom "C#" glyph: C icon with a small '#' overlaid
 function CSharpIcon({ size = 16, className = "" }: { size?: number; className?: string }) {
@@ -68,6 +69,7 @@ const ICONS: Record<string, React.ComponentType<{ size?: number; className?: str
   GitLab: SiGitlab,
   Vercel: SiVercel,
   Stripe: SiStripe,
+  Render: SiRender,
 };
 
 function Pill({ text }: { text: string }) {

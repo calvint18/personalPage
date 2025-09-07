@@ -18,9 +18,9 @@ const EDUCATION: Edu[] = [
     location: "Brunswick, Maine",
     gpa: "3.77/4.0",
     coursework: [
-      "Data Structures & Algorithms",
+      "Data Structures", "Algorithms",
       "Linear Algebra",
-      "Foundations of Computer Systems",
+      "Foundations of Computer Systems", "Web Analytics", "Intro to Math Reasoning", "Math Extension", "Macroeconomics", "Microeconomics", "Multivariate Calculus"
     ],
   },
   {
