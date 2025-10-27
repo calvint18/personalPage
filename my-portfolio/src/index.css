@@ -8,7 +8,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #000000;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -60,7 +60,6 @@ button:hover { border-color: #ffffff; }
 button:focus,
 button:focus-visible { outline: 4px auto -webkit-focus-ring-color; }
 
-
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -70,7 +69,7 @@ button:focus-visible { outline: 4px auto -webkit-focus-ring-color; }
   button { background-color: #f9f9f9; }
 }
 
-
+/* ---------- Animations ---------- */
 @keyframes slide-in-left {
   from { opacity: 0; transform: translateX(-48px) scale(.98); }
   to   { opacity: 1; transform: translateX(0) scale(1); }
@@ -82,14 +81,31 @@ button:focus-visible { outline: 4px auto -webkit-focus-ring-color; }
 @keyframes slide-out-left  { from {opacity:1; transform:translateX(0) scale(1)} to {opacity:0; transform:translateX(-48px) scale(.98)} }
 @keyframes slide-out-right { from {opacity:1; transform:translateX(0) scale(1)} to {opacity:0; transform:translateX(48px)  scale(.98)} }
 
-@keyframes pop-in  { from {opacity:0; transform:translateY(12px) scale(.92)} 60%{opacity:1; transform:translateY(-2px) scale(1.02)} to {opacity:1; transform:translateY(0) scale(1)} }
-@keyframes pop-out { from {opacity:1; transform:translateY(0) scale(1)} to {opacity:0; transform:translateY(12px) scale(.92)} }
+@keyframes pop-in  { 
+  from {opacity:0; transform:translateY(12px) scale(.92)} 
+  60% {opacity:1; transform:translateY(-2px) scale(1.02)} 
+  to   {opacity:1; transform:translateY(0) scale(1)} 
+}
+@keyframes pop-out { 
+  from {opacity:1; transform:translateY(0) scale(1)} 
+  to   {opacity:0; transform:translateY(12px) scale(.92)} 
+}
 
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Marquee used by Skills ticker 
+   - Holds for the last 6% so the end-cap is obvious */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  94%  { transform: translateX(-50%); } /* end of first half (cap passes) */
+  100% { transform: translateX(-50%); } /* brief hold */
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal { animation: none !important; opacity: 1 !important; transform: none !important; }
+  /* stop marquee animations if user prefers less motion */
+  [style*="animation: marquee"] { animation: none !important; }
 }

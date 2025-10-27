@@ -4,7 +4,7 @@ const CONTACT = {
   heading: "Contact Info",
   subheading: "I'm actively seeking 2026 Software Development and Engineering internships!",
   blurb:
-    "I would love to discuss how I can contribute to your team, your experience going through the interview process, and any other advice you may have!",
+    "I would love to discuss how I can contribute to your team, what your interview process is like, and any other advice you may have!",
   email: "cthompson2@bowdoin.edu",
   phone: "978-618-7073",
   location: "Boston, Massachusetts",

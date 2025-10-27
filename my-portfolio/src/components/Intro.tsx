@@ -4,7 +4,6 @@ import { Github, Linkedin, Mail, MapPin, ArrowDown } from "lucide-react";
 const PROFILE = {
   name: "Cal Thompson",
   title: "Software Engineer",
-  location: "Boston, MA",
   avatar: "/intro.jpg",
   links: {
     github: "https://github.com/calvint18",
@@ -245,13 +244,6 @@ export default function Intro() {
           <p className="reveal opacity-0 animate-[fade-up_600ms_ease-out_forwards] [animation-delay:220ms] mt-[-6px] text-sm sm:text-base text-white/80">
             {PROFILE.title}
           </p>
-
-          {PROFILE.location && (
-            <p className="reveal opacity-0 animate-[fade-up_600ms_ease-out_forwards] [animation-delay:300ms] inline-flex items-center justify-center gap-1.5 text-xs sm:text-sm text-white/60">
-              <MapPin className="w-4 h-4" />
-              {PROFILE.location}
-            </p>
-          )}
 
           <div className="reveal opacity-0 animate-[fade-up_600ms_ease-out_forwards] [animation-delay:420ms] flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
             <a

@@ -1,3 +1,4 @@
+// Skills.tsx
 import React from "react";
 import {
   SiTypescript,
@@ -17,14 +18,16 @@ import {
   SiNuget,
   SiC,
   SiRender,
+  SiSelenium,
+  SiScrapy,
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 import { VscAzure } from "react-icons/vsc";
 import { DiMsqlServer } from "react-icons/di";
 
 const LANGUAGES = ["TypeScript","JavaScript","Java","C","C#","SQL","Python","HTML5","CSS3"];
-const FRAMEWORKS = ["React","ASP.NET Core","Dapper","Tailwind CSS","Hangfire"];
-const TOOLS = ["SQL Server","Azure","Docker","Git","GitHub","GitLab","Vercel","Stripe", "Render"];
+const FRAMEWORKS = ["React","ASP.NET Core","Dapper","Tailwind CSS","Hangfire", "Selenium", "Scrapy"];
+const TOOLS = ["SQL Server","Azure","Docker","Git","GitHub","GitLab","Vercel","Stripe","Render"];
 
 // Custom "C#" glyph: C icon with a small '#' overlaid
 function CSharpIcon({ size = 16, className = "" }: { size?: number; className?: string }) {
@@ -32,17 +35,14 @@ function CSharpIcon({ size = 16, className = "" }: { size?: number; className?: 
   return (
     <span className={`relative inline-block ${className}`} style={box} aria-hidden>
       <SiC size={size} className="absolute inset-0" />
-      <span
-        className="absolute text-[9px] leading-none"
-        style={{ right: -2, top: -2 }}
-      >
+      <span className="absolute text-[9px] leading-none" style={{ right: -2, top: -2 }}>
         #
       </span>
     </span>
   );
 }
 
-// Map labels to icon components 
+// Map labels to icon components
 const ICONS: Record<string, React.ComponentType<{ size?: number; className?: string }> | undefined> = {
   // Languages
   TypeScript: SiTypescript,
@@ -62,7 +62,7 @@ const ICONS: Record<string, React.ComponentType<{ size?: number; className?: str
 
   // Tools
   "SQL Server": DiMsqlServer,
-  "Azure": VscAzure,
+  Azure: VscAzure,
   Docker: SiDocker,
   Git: SiGit,
   GitHub: SiGithub,
@@ -70,6 +70,8 @@ const ICONS: Record<string, React.ComponentType<{ size?: number; className?: str
   Vercel: SiVercel,
   Stripe: SiStripe,
   Render: SiRender,
+  Selenium : SiSelenium,
+  Scrapy : SiScrapy
 };
 
 function Pill({ text }: { text: string }) {
@@ -87,6 +89,8 @@ function Pill({ text }: { text: string }) {
   );
 }
 
+type RowItem = string | { gap: true };
+
 function TickerRow({
   items,
   speed = 24,
@@ -98,8 +102,15 @@ function TickerRow({
   reverse?: boolean;
   multiplier?: number;
 }) {
-  const base = Array.from({ length: multiplier }, () => items).flat();
-  const sequence = [...base, ...base];
+  // Insert a big visual gap after each full list (no "End" pill)
+  const withGap = (): RowItem[] => [...items, { gap: true }];
+
+  // Build sequence (duplicated for seamless wrap)
+  const base: RowItem[] = Array.from({ length: multiplier }, () => withGap()).flat();
+  const sequence: RowItem[] = [...base, ...base];
+
+  // Control the big break size here (e.g., "12rem", "200px")
+  const GAP_AFTER_LIST = "12rem";
 
   return (
     <div className="relative overflow-hidden py-1 [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
@@ -110,9 +121,18 @@ function TickerRow({
           animationDirection: reverse ? "reverse" : "normal",
         }}
       >
-        {sequence.map((t, i) => (
-          <Pill key={`${t}-${i}`} text={t} />
-        ))}
+        {sequence.map((t, i) =>
+          typeof t === "string" ? (
+            <Pill key={`${t}-${i}`} text={t} />
+          ) : (
+            <span
+              key={`gap-${i}`}
+              className="inline-block"
+              style={{ width: GAP_AFTER_LIST }}
+              aria-hidden
+            />
+          )
+        )}
       </div>
     </div>
   );
